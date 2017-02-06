@@ -1,6 +1,14 @@
 library(ggplot2)
 library(gridExtra)
 library(grid)
+# update ggplot2
+# install_github('cttobin/ggthemr')
+library(ggthemr)
+
+# https://github.com/cttobin/ggthemr
+# 'flat' or 'light' seem to look good
+# 'light' has better greyish continuous scale
+ggthemr('light')
 
 theme_ubicomp <- function(base_size = 20) {
   # os x
@@ -29,6 +37,7 @@ theme_ubicomp <- function(base_size = 20) {
         axis.line.y = element_line(colour = "#515151", size = 0.5), #add y axis line
         axis.title.y = element_text(size = base_size - 2, face = "bold",angle = 90, margin = ggplot2::margin(1,15,1,1)),
         axis.title.x = element_text(size = base_size - 2, face = "bold", margin = ggplot2::margin(15,1,1,1)),
+        # TODO add alignment of title to middle if you want?
         
         legend.key = element_blank(), #remove legend background
         legend.position	= "bottom", #position legend at bottom
@@ -67,10 +76,17 @@ grid_arrange_shared_legend <- function(..., ncol = length(list(...)), nrow = 1, 
   return(combined)
 }
 
-# Example usage
-ggplot(data=mtcars, aes(x=am, y=cyl, colour = cyl, group = cyl)) +
+# Example usage of continuous variable
+ggplot(data=mtcars, aes(x=am, y=cyl, colour = (gear), fill= (gear), group = cyl)) +
   ylab("Cylinder") +
   geom_vline(xintercept = 0.5, linetype = "longdash") +
-  geom_point(size = 2) +
+  geom_point(size = 5) +
   xlab("AM") +
-  theme_ubicomp(12) + ggtitle("Title goes here")
+  theme_ubicomp() + 
+  ggtitle("Mapping continuous variables")
+
+# example usage of discrete variable
+ggplot(mtcars, aes(x=mpg, color=as.factor(cyl), fill=as.factor(cyl))) + 
+  geom_density(alpha=0.5) + 
+  theme_ubicomp() + 
+  ggtitle("Mapping discrete variables")
