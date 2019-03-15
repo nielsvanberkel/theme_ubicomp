@@ -25,7 +25,7 @@ theme_ubicomp <- function(base_size = 20) {
   }
   t_bw <- theme_bw(base_size = base_size) #reset to theme_bw + font size
   t_e <- theme(
-        text = element_text(size = base_size, family = "ubifamily", colour = "#515151", face = "plain", hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 0.9, margin = 1, debug = FALSE), #font and font colour
+        text = element_text(size = base_size, family = "ubifamily", colour = "#515151", face = "plain", hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 0.9, margin = ggplot2::margin(1), debug = FALSE), #font and font colour
     
         panel.background = element_blank(), panel.border = element_blank(), #remove background and border
         panel.grid.major = element_line(colour = '#bbbbbb', linetype = 'dashed'), #customize look of major gridlines
